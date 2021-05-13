@@ -1,0 +1,88 @@
+<Schema name="CarSales">
+  <Cube name="Car_Sales" visible="true" cache="true" enabled="true">
+    <Table name="CARS_SOLD_FACT" schema="PUBLIC">
+    </Table>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DIM_ID" highCardinality="false" name="Customer">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_DIM_ID">
+        <Table name="CUSTOMER_DIM_TABLE" schema="PUBLIC">
+        </Table>
+        <Level name="CustomerCountry" visible="true" table="CUSTOMER_DIM_TABLE" column="COUNTRY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="CustomerAge" visible="true" table="CUSTOMER_DIM_TABLE" column="AGE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="CustomerGender" visible="true" table="CUSTOMER_DIM_TABLE" column="GENDER" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="CustomerName" visible="true" table="CUSTOMER_DIM_TABLE" column="FIRST_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="CAR_FOR_SALE_DIM_ID" highCardinality="false" name="CarsForSale">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CAR_FOR_SALE_DIM_ID">
+        <Table name="CARS_FOR_SALE_DIM_TABLE" schema="PUBLIC">
+        </Table>
+        <Level name="AskingPrice" visible="true" table="CARS_FOR_SALE_DIM_TABLE" column="ASKING_PRICE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="CurrentMileage" visible="true" table="CARS_FOR_SALE_DIM_TABLE" column="CURRENT_MILEAGE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="ManufacturerName" visible="true" table="CARS_FOR_SALE_DIM_TABLE" column="MANUFACTURER_SHORTNAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="ModelName" visible="true" table="CARS_FOR_SALE_DIM_TABLE" column="MODEL_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="RegistrationYear" visible="true" table="CARS_FOR_SALE_DIM_TABLE" column="REGISTRATION_YEAR" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="LOAN_DIM_ID" highCardinality="false" name="CarLoans">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="LOAN_DIM_ID">
+        <Table name="LOAN_DIM_TABLE" schema="PUBLIC">
+        </Table>
+        <Level name="FinanceCompanyName" visible="true" table="LOAN_DIM_TABLE" column="FINANCE_COMPANY_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="MonthlyRepayments" visible="true" table="LOAN_DIM_TABLE" column="MONTHLY_REPAYMENTS" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="RepaymentStartDate" visible="true" table="LOAN_DIM_TABLE" column="REPAYMENT_START_DATE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="RepaymentEndDate" visible="true" table="LOAN_DIM_TABLE" column="REPAYMENT_END_DATE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="StandardDimension" visible="true" foreignKey="POLICY_DIM_ID" highCardinality="false" name="Policies">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="POLICY_DIM_ID">
+        <Table name="POLICY_DIM_TABLE" schema="PUBLIC">
+        </Table>
+        <Level name="InsuranceCompanyName" visible="true" table="POLICY_DIM_TABLE" column="INSURANCE_COMPANY_NAME" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="MonthlyPayments" visible="true" table="POLICY_DIM_TABLE" column="MONTHLY_PAYMENTS" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="PolicyStartDate" visible="true" table="POLICY_DIM_TABLE" column="POLICY_RENEWAL_DATE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+        <Level name="PolicyRenewalDate" visible="true" table="POLICY_DIM_TABLE" column="POLICY_RENEWAL_DATE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Dimension type="TimeDimension" visible="true" foreignKey="DATE_DIM_ID" highCardinality="false" name="Date">
+      <Hierarchy name="Default" visible="true" hasAll="true">
+        <Table name="DATE_DIM" schema="PUBLIC">
+        </Table>
+        <Level name="Year" visible="true" table="DATE_DIM" column="SALES_YEAR" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
+        </Level>
+        <Level name="Quarter" visible="true" table="DATE_DIM" column="SALES_QUARTER" type="String" uniqueMembers="false" levelType="TimeQuarters" hideMemberIf="Never">
+        </Level>
+        <Level name="Month" visible="true" table="DATE_DIM" column="SALES_MONTH_NAME" type="String" uniqueMembers="false" levelType="TimeMonths" hideMemberIf="Never">
+        </Level>
+        <Level name="DayOfYear" visible="true" table="DATE_DIM" column="SALES_DAY_OF_YEAR" type="String" uniqueMembers="false" levelType="TimeDays" hideMemberIf="Never">
+        </Level>
+      </Hierarchy>
+    </Dimension>
+    <Measure name="Revenue" column="AGREED_PRICE" aggregator="sum" visible="true">
+    </Measure>
+    <Measure name="CustomerCount" column="CUSTOMER_DIM_ID" aggregator="distinct-count" visible="true">
+    </Measure>
+    <Measure name="AvragePriceDifference" column="PRICE_DIFFERENCE" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="AvrageAgreedPrice" column="AGREED_PRICE" aggregator="avg" visible="true">
+    </Measure>
+    <Measure name="CarsSold" column="CAR_FOR_SALE_DIM_ID" aggregator="distinct-count" visible="true">
+    </Measure>
+  </Cube>
+</Schema>
