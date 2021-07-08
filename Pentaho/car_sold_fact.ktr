@@ -543,26 +543,6 @@
   </connection>
   <order>
     <hop>
-      <from>Table input</from>
-      <to>Customer Dimension lookup/update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Policy lookup/update</from>
-      <to>Date</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Customer Dimension lookup/update</from>
-      <to>Car For Sale Dimension lookup/update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Loan Dimension lookup/update </from>
-      <to>Policy lookup/update</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Date</from>
       <to>Calculator</to>
       <enabled>Y</enabled>
@@ -580,6 +560,26 @@
     <hop>
       <from>Select values</from>
       <to>Loan Dimension lookup/update </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input</from>
+      <to>Customer Demographic Dimension lookup/update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Customer Demographic Dimension lookup/update</from>
+      <to>Dimension lookup/update 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dimension lookup/update 2</from>
+      <to>Car For Sale Dimension lookup/update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Loan Dimension lookup/update </from>
+      <to>Date</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -615,6 +615,51 @@
       <calc_type>ABS</calc_type>
       <field_a>price_difference1</field_a>
       <field_b/>
+      <field_c/>
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>const100</field_name>
+      <calc_type>CONSTANT</calc_type>
+      <field_a>10</field_a>
+      <field_b/>
+      <field_c/>
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Paid_in_Month</field_name>
+      <calc_type>MULTIPLY</calc_type>
+      <field_a>monthly_Payment_Amount</field_a>
+      <field_b>const100</field_b>
+      <field_c/>
+      <value_type>Number</value_type>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <remove>N</remove>
+      <conversion_mask/>
+      <decimal_symbol/>
+      <grouping_symbol/>
+      <currency_symbol/>
+    </calculation>
+    <calculation>
+      <field_name>Months_to_repay</field_name>
+      <calc_type>DIVIDE</calc_type>
+      <field_a>agreed_Price</field_a>
+      <field_b>Paid_in_Month</field_b>
       <field_c/>
       <value_type>Number</value_type>
       <value_length>-1</value_length>
@@ -696,8 +741,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>528</xloc>
-      <yloc>128</yloc>
+      <xloc>464</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -735,22 +780,6 @@
         <stream_name>agreed_Price</stream_name>
       </field>
       <field>
-        <column_name>date_Sold</column_name>
-        <stream_name>date_Sold</stream_name>
-      </field>
-      <field>
-        <column_name>monthly_Payment_Amount</column_name>
-        <stream_name>monthly_Payment_Amount</stream_name>
-      </field>
-      <field>
-        <column_name>monthly_Payment_Date</column_name>
-        <stream_name>monthly_Payment_Date</stream_name>
-      </field>
-      <field>
-        <column_name>customer_dim_id</column_name>
-        <stream_name>customer_dim_id</stream_name>
-      </field>
-      <field>
         <column_name>car_for_sale_dim_id</column_name>
         <stream_name>car_for_sale_dim_id</stream_name>
       </field>
@@ -759,20 +788,24 @@
         <stream_name>agreed_Price</stream_name>
       </field>
       <field>
-        <column_name>loan_dim_id</column_name>
-        <stream_name>loan_dim_id</stream_name>
-      </field>
-      <field>
-        <column_name>policy_dim_id</column_name>
-        <stream_name>policy_dim_id</stream_name>
-      </field>
-      <field>
         <column_name>date_dim_id</column_name>
         <stream_name>date_dim_id</stream_name>
       </field>
       <field>
         <column_name>price_difference</column_name>
         <stream_name>price_difference</stream_name>
+      </field>
+      <field>
+        <column_name>Months_to_repay</column_name>
+        <stream_name>Months_to_repay</stream_name>
+      </field>
+      <field>
+        <column_name>customer_demographic_dim_id</column_name>
+        <stream_name>customer_demographic_dim_id</stream_name>
+      </field>
+      <field>
+        <column_name>customer_location_dim_id</column_name>
+        <stream_name>customer_location_dim_id</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -790,7 +823,7 @@
     </GUI>
   </step>
   <step>
-    <name>Customer Dimension lookup/update</name>
+    <name>Customer Demographic Dimension lookup/update</name>
     <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
@@ -801,10 +834,10 @@
       <schema_name/>
     </partitioning>
     <schema>PUBLIC</schema>
-    <table>CUSTOMER_DIM_TABLE</table>
+    <table>CUSTOMER_DEMOGRAPHIC_DIM_TABLE</table>
     <connection>DataMartCon</connection>
     <commit>100</commit>
-    <update>N</update>
+    <update>Y</update>
     <fields>
       <key>
         <name>customer_ID</name>
@@ -816,7 +849,7 @@
         <to>date_to</to>
       </date>
       <return>
-        <name>customer_dim_id</name>
+        <name>customer_demographic_dim_id</name>
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
@@ -826,7 +859,7 @@
     <sequence/>
     <min_year>1900</min_year>
     <max_year>2199</max_year>
-    <cache_size>-1</cache_size>
+    <cache_size>5000</cache_size>
     <preload_cache>N</preload_cache>
     <use_start_date_alternative>N</use_start_date_alternative>
     <start_date_alternative>none</start_date_alternative>
@@ -841,8 +874,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
-      <yloc>128</yloc>
+      <xloc>160</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -898,8 +931,65 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1040</xloc>
+      <xloc>992</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dimension lookup/update 2</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <schema>PUBLIC</schema>
+    <table>CUSTOMER_LOCATION_DIM_TABLE</table>
+    <connection>DataMartCon</connection>
+    <commit>100</commit>
+    <update>Y</update>
+    <fields>
+      <key>
+        <name>customer_ID</name>
+        <lookup>CUSTOMER_ID</lookup>
+      </key>
+      <date>
+        <name/>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <return>
+        <name>customer_location_dim_id</name>
+        <rename/>
+        <creation_method>tablemax</creation_method>
+        <use_autoinc>N</use_autoinc>
+        <version>version</version>
+      </return>
+    </fields>
+    <sequence/>
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>5000</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name/>
+    <useBatch>N</useBatch>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -955,14 +1045,14 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>784</xloc>
+      <xloc>720</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Policy lookup/update</name>
-    <type>DimensionLookup</type>
+    <name>Select values</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -971,38 +1061,76 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <schema>PUBLIC</schema>
-    <table>POLICY_DIM_TABLE</table>
-    <connection>DataMartCon</connection>
-    <commit>100</commit>
-    <update>N</update>
     <fields>
-      <key>
+      <field>
         <name>car_Sold_ID</name>
-        <lookup>CAR_SOLD_ID</lookup>
-      </key>
-      <date>
-        <name/>
-        <from>date_from</from>
-        <to>date_to</to>
-      </date>
-      <return>
-        <name>policy_dim_id</name>
-        <rename/>
-        <creation_method>tablemax</creation_method>
-        <use_autoinc>N</use_autoinc>
-        <version>version</version>
-      </return>
+      </field>
+      <field>
+        <name>car_for_Sale_ID</name>
+      </field>
+      <field>
+        <name>customer_ID</name>
+      </field>
+      <field>
+        <name>agreed_Price</name>
+      </field>
+      <field>
+        <name>date_Sold</name>
+      </field>
+      <field>
+        <name>monthly_Payment_Amount</name>
+      </field>
+      <field>
+        <name>monthly_Payment_Date</name>
+      </field>
+      <field>
+        <name>customer_demographic_dim_id</name>
+      </field>
+      <field>
+        <name>customer_location_dim_id</name>
+      </field>
+      <field>
+        <name>car_for_sale_dim_id</name>
+      </field>
+      <field>
+        <name>ASKING_PRICE</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>ASKING_PRICE</name>
+        <rename>ASKING_PRICE_INT</rename>
+        <type>Integer</type>
+        <length>11</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>date_Sold</name>
+        <rename>date_Sold</rename>
+        <type>Timestamp</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
     </fields>
-    <sequence/>
-    <min_year>1900</min_year>
-    <max_year>2199</max_year>
-    <cache_size>-1</cache_size>
-    <preload_cache>N</preload_cache>
-    <use_start_date_alternative>N</use_start_date_alternative>
-    <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name/>
-    <useBatch>N</useBatch>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1012,8 +1140,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>128</yloc>
+      <xloc>608</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1208,92 +1336,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>176</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>car_Sold_ID</name>
-        <rename/>
-      </field>
-      <field>
-        <name>car_for_Sale_ID</name>
-        <rename/>
-      </field>
-      <field>
-        <name>customer_ID</name>
-        <rename/>
-      </field>
-      <field>
-        <name>date_Sold</name>
-        <rename/>
-      </field>
-      <field>
-        <name>monthly_Payment_Amount</name>
-        <rename/>
-      </field>
-      <field>
-        <name>monthly_Payment_Date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>customer_dim_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>car_for_sale_dim_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>ASKING_PRICE</name>
-        <rename/>
-      </field>
-      <field>
-        <name>agreed_Price</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-      <meta>
-        <name>ASKING_PRICE</name>
-        <rename>ASKING_PRICE_INT</rename>
-        <type>Integer</type>
-        <length>11</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
+      <xloc>32</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
