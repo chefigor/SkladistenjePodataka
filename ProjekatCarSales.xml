@@ -35,7 +35,7 @@
       </Hierarchy>
     </Dimension>
     <Dimension type="TimeDimension" visible="true" foreignKey="DATE_DIM_ID" highCardinality="false" name="Date">
-      <Hierarchy name="Default" visible="true" hasAll="true">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="DATE_DIM_ID">
         <Table name="DATE_DIM" schema="PUBLIC">
         </Table>
         <Level name="Year" visible="true" table="DATE_DIM" column="SALES_YEAR" type="String" uniqueMembers="false" levelType="TimeYears" hideMemberIf="Never">
