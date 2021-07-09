@@ -2,13 +2,13 @@
   <Cube name="Car_Sales" visible="true" cache="true" enabled="true">
     <Table name="CARS_SOLD_FACT" schema="PUBLIC">
     </Table>
-    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DEMOGRAPHIC_DIM_ID" highCardinality="false" name="CustomerDemographic">
-      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_DEMOGRAPHIC_DIM_ID">
-        <Table name="CUSTOMER_DEMOGRAPHIC_DIM_TABLE" schema="PUBLIC">
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DIM_ID" highCardinality="false" name="CustomerDemographic">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_DIM_ID">
+        <Table name="CUSTOMER_DIM_TABLE" schema="PUBLIC">
         </Table>
-        <Level name="CustomerAge" visible="true" table="CUSTOMER_DEMOGRAPHIC_DIM_TABLE" column="AGE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="CustomerAge" visible="true" table="CUSTOMER_DIM_TABLE" column="AGE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
-        <Level name="CustomerGender" visible="true" table="CUSTOMER_DEMOGRAPHIC_DIM_TABLE" column="GENDER" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="CustomerGender" visible="true" table="CUSTOMER_DIM_TABLE" column="GENDER" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
@@ -22,15 +22,15 @@
         </Level>
       </Hierarchy>
     </Dimension>
-    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DEMOGRAPHIC_DIM_ID" highCardinality="false" name="CustomerLocation">
-      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_LOCATION_DIM_ID">
-        <Table name="CUSTOMER_LOCATION_DIM_TABLE" schema="PUBLIC">
+    <Dimension type="StandardDimension" visible="true" foreignKey="CUSTOMER_DIM_ID" highCardinality="false" name="CustomerLocation">
+      <Hierarchy name="Default" visible="true" hasAll="true" primaryKey="CUSTOMER_DIM_ID">
+        <Table name="CUSTOMER_DIM_TABLE" schema="PUBLIC">
         </Table>
-        <Level name="Country" visible="true" table="CUSTOMER_LOCATION_DIM_TABLE" column="COUNTRY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="Country" visible="true" table="CUSTOMER_DIM_TABLE" column="COUNTRY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
-        <Level name="State" visible="true" table="CUSTOMER_LOCATION_DIM_TABLE" column="STATE_COUNTRY_PROVINCE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="State" visible="true" table="CUSTOMER_DIM_TABLE" column="STATE_COUNTRY_PROVINCE" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
-        <Level name="Town" visible="true" table="CUSTOMER_LOCATION_DIM_TABLE" column="TOWN_CITY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
+        <Level name="Town" visible="true" table="CUSTOMER_DIM_TABLE" column="TOWN_CITY" type="String" uniqueMembers="false" levelType="Regular" hideMemberIf="Never">
         </Level>
       </Hierarchy>
     </Dimension>
@@ -50,7 +50,7 @@
     </Dimension>
     <Measure name="Revenue" column="AGREED_PRICE" aggregator="sum" visible="true">
     </Measure>
-    <Measure name="DistinctCustomerCount" column="CUSTOMER_LOCATION_DIM_ID" aggregator="distinct-count" visible="true">
+    <Measure name="DistinctCustomerCount" column="CUSTOMER_DIM_ID" aggregator="distinct-count" visible="true">
     </Measure>
     <Measure name="AvragePriceDifference" column="PRICE_DIFFERENCE" aggregator="avg" visible="true">
     </Measure>
@@ -60,7 +60,7 @@
     </Measure>
     <Measure name="AverageMonthsToRepay" column="MONTHS_TO_REPAY" aggregator="avg" visible="true">
     </Measure>
-    <Measure name="CustomerCount" column="CUSTOMER_LOCATION_DIM_ID" aggregator="count" visible="true">
+    <Measure name="CustomerCount" column="CUSTOMER_DIM_ID" aggregator="count" visible="true">
     </Measure>
   </Cube>
 </Schema>

@@ -560,7 +560,7 @@
       <schema_name/>
     </partitioning>
     <schema>PUBLIC</schema>
-    <table>CUSTOMER_DEMOGRAPHIC_DIM_TABLE</table>
+    <table>CUSTOMER_DIM_TABLE</table>
     <connection>DataMartCon</connection>
     <commit>100</commit>
     <update>Y</update>
@@ -575,17 +575,92 @@
         <to>date_to</to>
       </date>
       <field>
+        <name>cell_Mobile_Phone</name>
+        <lookup>cell_Mobile_Phone</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>email_Address</name>
+        <lookup>email_Address</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>first_name</name>
+        <lookup>first_name</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>last_name</name>
+        <lookup>last_name</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
         <name>gender</name>
         <lookup>gender</lookup>
-        <update>Punch through</update>
+        <update>Insert</update>
       </field>
       <field>
         <name>age</name>
         <lookup>age</lookup>
-        <update>Punch through</update>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>other_Customer_Details</name>
+        <lookup>other_Customer_Details</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>address_id</name>
+        <lookup>address_id</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>address_line_1</name>
+        <lookup>address_line_1</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>address_line_2</name>
+        <lookup>address_line_2</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>address_line_3</name>
+        <lookup>address_line_3</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>address_line_4</name>
+        <lookup>address_line_4</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>town_city</name>
+        <lookup>town_city</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>state_country_province</name>
+        <lookup>state_country_province</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>country</name>
+        <lookup>country</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>post_zip_code</name>
+        <lookup>post_zip_code</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>other_address_details</name>
+        <lookup>other_address_details</lookup>
+        <update>Insert</update>
       </field>
       <return>
-        <name>customer_demographic_dim_id</name>
+        <name>customer_dim_id</name>
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
